@@ -1,0 +1,108 @@
+
+
+<ion-header style="border: none !important; box-shadow: none !important;">
+  <ion-toolbar>
+<img src="assets/farologo.png" width="100px" alt="">
+  <!-- Otros elementos de encabezado, como el título -->
+  <ion-buttons slot="start">
+    <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-buttons (click)="openPopover($event)" slot="end">
+      <ion-button class="notification-button">
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+        <ion-badge *ngIf="notificationCount > 0" color="danger" class="notification-badge">{{ notificationCount }}</ion-badge>
+      </ion-button >
+      Notificaciones
+
+    </ion-buttons>
+
+
+
+        <ion-buttons (click)="signOut()" slot="end">
+      <ion-button >
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+      Cerrar Sesión
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-text color="warning">
+    <h1 class="ion-padding-start">Productos</h1>
+  </ion-text>
+
+  <ng-template #loadingTemplate>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" size-md="4" *ngFor="let i of [0,1,2,3,4,5]">
+          <ion-card>
+            <ion-card-header>
+              <ion-skeleton-text animated style="width: 60%; height: 20px;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%; height: 16px;"></ion-skeleton-text>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 50%; margin-top: 8px;"></ion-skeleton-text>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
+<!-- Grid para mostrar recetas 2 en 2 con animación -->
+<ion-grid>
+  <ion-row>
+    <ng-container *ngIf="!loading; else loadingTemplate">
+      <ion-col size="6" size-md="3" *ngFor="let producto of products; let i = index" [class.fade-in]="true" [style.animation-delay]="i * 0.1 + 's'">
+        <ion-card>
+          <img
+            class="ion-padding fade-in-image"
+            [src]="loadImage(producto)"
+            (load)="imageLoaded[i] = true"
+            [ngClass]="{'image-loaded': imageLoaded[i]}"
+            (click)="OpenPedido(producto)"/>
+
+          <!-- Mostrar el botón solo si hay stock -->
+          <ion-button *ngIf="producto.cantidad_comprar > 0"
+                      (click)="OpenPedido(producto)"
+                      fill="solid"
+                      shape="round"
+                      size="small"
+                      color="warning"
+                      class="floating-button">
+            <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+          </ion-button>
+
+          <ion-card-header>
+            <ion-card-title>{{ producto.nombre }}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-card-subtitle color="warning">Precio: {{ producto.precio_venta }}$</ion-card-subtitle>
+
+            <!-- Mostrar "No disponible" si cantidad_comprar es 0 -->
+            <ion-card-subtitle [color]="producto.cantidad_comprar > 0 ? 'success' : 'danger'">
+              {{ producto.cantidad_comprar > 0 ? 'Disponible: ' + producto.cantidad_comprar + ' Unidades' : 'Agotados' }}
+            </ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ng-container>
+  </ion-row>
+</ion-grid>
+
+
+
+
+
+  </ion-content>

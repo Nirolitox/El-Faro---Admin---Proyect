@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detalle del Pedido</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="pedido">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Pedido de {{ pedido.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let producto of pedido.lista_productos">
+          <ion-label>
+            <h2>{{ producto.producto }}</h2>
+            <ion-text color="primary">
+              <p>{{ producto.descripcion }}</p>
+            </ion-text>
+            <ion-text color="warning">
+              <p>Cantidad: {{ producto.cantidad }}</p>
+            </ion-text>
+            <p>Tipo de entrega: {{ producto.tipo_entrega }}</p>
+            <p>Reservado para: {{ producto.fecha }} a las: {{producto.hora}}</p>
+            <p *ngIf="producto.tipo_entrega === 'Delivery'">Ubicación: {{ producto.location }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+      <ion-item lines="none">
+        <ion-label>Total en Dólares</ion-label>
+        <ion-note slot="end">{{ calcularTotal(pedido.lista_productos) }} $</ion-note>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label>Metodo De Pago: {{ pedido.metodo_pago }}</ion-label>
+        <ion-note slot="end">{{ pedido.metodo_pago }}</ion-note>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label>Total en Bolívares</ion-label>
+        <ion-note slot="end">{{ (ultimaTasaLocal * calcularTotal(pedido.lista_productos)).toFixed(2) }} Bs</ion-note>
+      </ion-item>
+
+      <ion-button *ngIf="pedido.metodo_pago === 'PagoMóvil' || pedido.metodo_pago === 'Transferencia'"
+                  (click)="VerPago(pedido)" expand="block" fill="clear" shape="round">
+        Ver Comprobante De Pago
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-item>
+    <ion-label>Cambiar Estado del pedido</ion-label>
+    <ion-select [(ngModel)]="nuevoStatus" placeholder="Seleccionar estado">
+      <ion-select-option value="Atendido">Atendido</ion-select-option>
+      <ion-select-option value="Entregado">Entregado</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Texto de advertencia para el estado del pedido -->
+  <ion-text color="danger" *ngIf="!nuevoStatus">
+    <p>Por favor selecciona un estado para el pedido.</p>
+  </ion-text>
+
+  <ion-item>
+    <ion-label>Mensaje:</ion-label>
+    <ion-input type="text" placeholder="Mensaje para el cliente"  [(ngModel)]="mensaje"></ion-input>
+  </ion-item>
+
+
+  <!-- Texto de advertencia para el mensaje -->
+  <ion-text color="danger" *ngIf="!mensaje">
+    <p>Por favor ingresa un mensaje para el usuario.</p>
+  </ion-text>
+
+  <!-- Botón de Actualizar Pedido solo habilitado cuando ambos campos están completos -->
+  <ion-button expand="block" (click)="actualizarPedido()"
+              [disabled]="!nuevoStatus || !mensaje">
+    Actualizar Pedido
+  </ion-button>
+
+</ion-content>

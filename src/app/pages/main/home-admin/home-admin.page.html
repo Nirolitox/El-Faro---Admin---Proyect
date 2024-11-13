@@ -1,0 +1,239 @@
+<ion-menu menuId="first-menu" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Opciones</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+
+    <!-- CONTENIDO DEL SIDEMENU -->
+
+    <div class="avatar-container">
+      <ion-avatar>
+        <ion-icon class="empty-icon" name="person-circle-outline"></ion-icon>
+      </ion-avatar>
+      <ion-text class="ion-text-center">
+        <h1>Administrador</h1>
+      </ion-text>
+      </div>
+
+          <!-- Accordion -->
+          <ion-accordion-group>
+
+                    <!-- ACCORDION PARA AGREGAR/ACTUALIZAR TASA DEL DOLAR -->
+
+        <ion-accordion >
+          <ion-item slot="header">
+            <ion-icon slot="start" name="cash-outline" color="success"></ion-icon> <!-- Icono agregado -->
+            <ion-label>Tasa Del Día</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-item  routerDirection="forward" lines="none">
+              <ion-icon slot="start" name="add-outline" color="success"></ion-icon> <!-- Icono opcional -->
+              <ion-label (click)="AddUpdateTasa()">Agrega/Actualizar Tasa Del Día</ion-label>
+            </ion-item>
+
+            <!-- VISUALIZAR PRECIO DEL DOLAR -->
+            <ion-item (click)="openPopover($event)" routerDirection="forward" lines="none">
+              <ion-icon slot="start" name="eye-outline" color="success"></ion-icon> <!-- Icono opcional -->
+              <ion-label>Ver Tasa Del Día</ion-label>
+            </ion-item>
+          </div>
+        </ion-accordion>
+
+            <!-- ACCORDION PARA PRODUCCION -->
+            <ion-accordion >
+              <ion-item slot="header">
+                <ion-icon slot="start" name="storefront-outline" color="primary"></ion-icon> <!-- Icono agregado -->
+                <ion-label>Inversión</ion-label>
+              </ion-item>
+              <div class="ion-padding" slot="content">
+                <ion-item  routerDirection="forward" lines="none">
+                  <ion-icon slot="start" name="add-outline" color="primary"></ion-icon> <!-- Icono opcional -->
+                  <ion-label (click)="AddUpdateInversion()">Añadir</ion-label>
+                </ion-item>
+                <ion-item  routerDirection="forward" lines="none">
+                  <ion-icon slot="start" name="eye-outline" color="primary"></ion-icon> <!-- Icono opcional -->
+                  <ion-label [routerLink]="['visualizer-products']">Ver Inventario</ion-label>
+                </ion-item>
+              </div>
+            </ion-accordion>
+
+         <!-- ACCORDION PARA AÑADIR RECETAS -->
+
+         <ion-accordion >
+          <ion-item slot="header">
+            <ion-icon slot="start" name="fast-food-outline" color="warning"></ion-icon> <!-- Icono agregado -->
+            <ion-label>Recetas</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <ion-item  routerDirection="forward" lines="none">
+              <ion-icon slot="start" name="add-outline" color="warning"></ion-icon> <!-- Icono opcional -->
+              <ion-label (click)="AddUpdateRecetas()">Crear Recetas</ion-label>
+            </ion-item>
+            <ion-item  routerDirection="forward" lines="none">
+              <ion-icon slot="start" name="eye-outline" color="warning"></ion-icon> <!-- Icono opcional -->
+              <ion-label [routerLink]="['visualizer-recetas']">Mis Recetas</ion-label>
+            </ion-item>
+          </div>
+        </ion-accordion>
+
+
+                 <!-- ACCORDION PARA AÑADIR PROMOCIONES -->
+
+                 <ion-accordion >
+                  <ion-item slot="header">
+                    <ion-icon slot="start" name="pizza-outline" color="warning"></ion-icon> <!-- Icono agregado -->
+                    <ion-label>Promociones</ion-label>
+                  </ion-item>
+                  <div class="ion-padding" slot="content">
+                    <ion-item  routerDirection="forward" lines="none">
+                      <ion-icon slot="start" name="add-outline" color="warning"></ion-icon> <!-- Icono opcional -->
+                      <ion-label (click)="AddUpdatePromocion()">Crear Promoción</ion-label>
+                    </ion-item>
+                    <ion-item  routerDirection="forward" lines="none">
+                      <ion-icon slot="start" name="eye-outline" color="warning"></ion-icon> <!-- Icono opcional -->
+                      <ion-label [routerLink]="['visualizer-promociones']">Mis Promociones</ion-label>
+                    </ion-item>
+                  </div>
+                </ion-accordion>
+
+                 <!-- ACCORDION PARA PRODUCTOS NO ELABORADOS -->
+
+                 <ion-accordion >
+                  <ion-item slot="header">
+                    <ion-icon slot="start" name="ice-cream-outline" color="danger"></ion-icon> <!-- Icono agregado -->
+                    <ion-label >Productos No Elaborados</ion-label>
+                  </ion-item>
+                  <div class="ion-padding" slot="content">
+                    <ion-item  routerDirection="forward" lines="none">
+                      <ion-icon slot="start" name="add-outline" color="danger"></ion-icon> <!-- Icono opcional -->
+                      <ion-label (click)="AddUpdateProductosNoElaborados()">Añadir</ion-label>
+                    </ion-item>
+                    <ion-item  routerDirection="forward" lines="none">
+                      <ion-icon color="danger" slot="start" name="eye-outline"></ion-icon> <!-- Icono opcional -->
+                      <ion-label [routerLink]="['visualizer-products-no-elaborados']">Mis Productos</ion-label>
+                    </ion-item>
+                  </div>
+                </ion-accordion>
+
+
+
+
+          </ion-accordion-group>
+
+          <ion-item  routerDirection="forward" lines="none">
+            <ion-icon color="success" slot="start" name="wallet-outline"></ion-icon> <!-- Icono opcional -->
+            <ion-label [routerLink]="['ventas']">Mis Ventas</ion-label>
+          </ion-item>
+
+
+  </ion-content>
+</ion-menu>
+
+<ion-header style="border: none !important; box-shadow: none !important;">
+  <ion-toolbar >
+    <ion-buttons slot="start">
+      <ion-button (click)="openFirstMenu()">
+        <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-text color="warning">
+      <h1 class="ion-padding-start">Menú Principal</h1>
+    </ion-text>
+
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['notifications']">
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+        <ion-badge *ngIf="cantidadNotificaciones > 0" color="danger" style="position: absolute; top: -5px; right: -5px;">
+          {{ cantidadNotificaciones }}
+        </ion-badge>
+      </ion-button>
+    </ion-buttons>
+
+
+    <ion-buttons slot="end">
+      <ion-button (click)="signOut()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<!-- CONTENIDO DE LA PAGINA -->
+
+<ion-content [fullscreen]="true" id="main-content">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ng-template #loadingTemplate>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" size-md="4" *ngFor="let i of [0,1,2,3,4,5]">
+          <ion-card>
+            <ion-card-header>
+              <ion-skeleton-text animated style="width: 60%; height: 20px;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%; height: 16px;"></ion-skeleton-text>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 50%; margin-top: 8px;"></ion-skeleton-text>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
+
+  <ion-text color="warning">
+    <h1 class="ion-padding-start">Mis Recetas</h1>
+  </ion-text>
+
+  <!-- Grid para mostrar recetas -->
+  <ion-grid>
+    <ion-row>
+      <ng-container *ngIf="!loading; else loadingTemplate">
+        <ion-col size="6" size-md="3" *ngFor="let receta of recetas; let i = index" [class.fade-in]="true" [style.animation-delay]="i * 0.1 + 's'">
+          <ion-card *ngIf="receta.categoria">
+            <img class="ion-padding fade-in-image" [src]="receta.image" (load)="imageLoaded[i] = true" [ngClass]="{'image-loaded': imageLoaded[i]}" />
+            <ion-card-header>
+              <ion-card-title>{{ receta.nombre }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-card-subtitle  color="warning">Tiempo De Preparación: {{receta.tiempo_de_preparacion}} </ion-card-subtitle>
+              <ion-card-subtitle  color="success">Precio: {{receta.precio}} $</ion-card-subtitle>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ng-container>
+    </ion-row>
+  </ion-grid>
+
+  <ion-text color="warning">
+    <h1 class="ion-padding-start">Mis Productos</h1>
+  </ion-text>
+
+  <!-- Grid para mostrar productos -->
+  <ion-grid>
+    <ion-row>
+      <ng-container *ngIf="!loading; else loadingTemplate">
+        <ion-col size="6" size-md="3" *ngFor="let producto of productos; let i = index" [class.fade-in]="true" [style.animation-delay]="i * 0.1 + 's'">
+          <ion-card *ngIf="producto.nombre">
+            <img class="ion-padding fade-in-image" [src]="producto.image" (load)="imageLoaded[i] = true" [ngClass]="{'image-loaded': imageLoaded[i]}" />
+            <ion-card-header>
+              <ion-card-title>{{ producto.nombre }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-card-subtitle color="success">Precio: {{producto.precio_venta}} $</ion-card-subtitle>
+              <ion-card-subtitle color="warning">Cantidad Disponible: {{producto.cantidad_comprar}}</ion-card-subtitle>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ng-container>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

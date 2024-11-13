@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { DomController, Platform } from '@ionic/angular';
+import { StatusBar } from '@capacitor/status-bar';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(private platform: Platform, private domCtrl: DomController) {
+    this.platform.ready().then(() => {
+      this.domCtrl.read(() => {
+        const color = getComputedStyle(document.body).getPropertyValue('--ion-color-primary').trim();
+        StatusBar.setBackgroundColor({ color });
+      });
+    });
+  }
 }

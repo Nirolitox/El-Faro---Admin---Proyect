@@ -1,0 +1,35 @@
+<ion-header style="border: none !important; box-shadow: none !important;">
+  <ion-toolbar style="--background: transparent; border: none !important; box-shadow: none !important;">
+    <ion-title>Perfíl</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <div class="profile-container"> -->
+  <ion-avatar class="ion-text-center">
+    <img *ngIf="user()?.image" [src]="user()?.image" />
+
+    <ion-icon *ngIf="!user()?.image" name="person-circle-outline"></ion-icon>
+    <ion-button color="light" (click)="takeImage()" mode="ios" size="small" shape="round">
+      <ion-icon  name="camera-outline"></ion-icon>
+    </ion-button>
+  </ion-avatar>
+
+
+
+  <div class="profile-details">
+  <h2 class="ion-text-center"> {{user().name}}</h2>
+  <h2 class="ion-text-center"> {{user().cedula}}</h2>
+  <h2 class="ion-text-center" style="font-size: medium;"> {{user().email}}</h2>
+  <br>
+</div>
+
+
+
+
+</ion-content>

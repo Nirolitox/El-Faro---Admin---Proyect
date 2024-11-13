@@ -1,0 +1,88 @@
+<ion-header style="border: none !important; box-shadow: none !important;">
+  <ion-toolbar style="--background: transparent; border: none !important; box-shadow: none !important;">
+    <ion-title>{{pedido.nombre}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="pedido; else loading">
+  <img class="ion-padding" [src]="pedido.image" alt="{{ pedido.nombre }}" />
+  <h2 class="ion-padding">{{ pedido.nombre }}</h2>
+  <p class="ion-padding">{{pedido.descripcion}}</p>
+  <ion-text color="warning">
+    <h1 class="ion-padding">Precio: {{pedido.precio_venta}} $</h1>
+  </ion-text>
+
+  <!-- Contador de cantidad -->
+  <div class="quantity-selector">
+    <ion-button (click)="decreaseQuantity()" fill="outline" color="danger">-</ion-button>
+    <h2 class="ion-text-center">{{quantity}}</h2>
+    <ion-button (click)="increaseQuantity()" fill="outline" color="success">+</ion-button>
+  </div>
+
+<!-- Selección de método de entrega -->
+<div class="ion-padding">
+  <ion-label>Selecciona un método de entrega:</ion-label>
+  <ion-select  placeholder="Seleccione El Tipo De Entrega" [(ngModel)]="deliveryMethod" (ionChange)="onDeliveryMethodChange()">
+    <ion-select-option value="Delivery">Delivery</ion-select-option>
+    <ion-select-option value="Retiro Por El Local">Retiro por el local</ion-select-option>
+  </ion-select>
+</div>
+
+
+  <!-- Textarea para ubicación si se selecciona delivery -->
+  <div *ngIf="deliveryMethod === 'Delivery'" class="ion-padding">
+    <ion-label>Ingresa tu ubicación detallada:</ion-label>
+    <ion-textarea [(ngModel)]="location" placeholder="Escribe tu ubicación aquí..." (ngModelChange)="validateForm()"></ion-textarea>
+    <div *ngIf="deliveryMethod === 'Delivery' && location.length < 5" class="error-message">
+      La ubicación debe tener al menos 5 caracteres.
+    </div>
+  </div>
+
+  <!-- Selección de fecha y hora en un solo ion-datetime -->
+  <div class="ion-padding">
+    <ion-label>Selecciona fecha y hora:</ion-label>
+    <ion-datetime
+      displayFormat="MMM D, YYYY HH:mm"
+      [(ngModel)]="fullDateTime"
+      [min]="minDate"
+      [disabled]="isFridayEvening()">
+    </ion-datetime>
+  </div>
+
+  <div *ngIf="isFridayEvening()" class="error-message">
+    No se pueden hacer pedidos los viernes a partir de las 6   de la tarde.
+  </div>
+
+    <!-- Mensaje de advertencia para completar el formulario -->
+    <div *ngIf="!formValid" class="ion-text-center ion-padding">
+      <ion-text color="danger">
+        <p>Por favor, completa todos los campos obligatorios para hacer el pedido.</p>
+      </ion-text>
+    </div>
+
+
+  <!-- Subtotal -->
+  <div class="pedido">
+    <ion-title>Sub Total: {{calculateSubtotal()}} $</ion-title>
+    <ion-button
+    (click)="AddCart()"
+    fill="solid"
+    shape="round"
+    size="small"
+    color="warning"
+    class="floating-button"
+    [disabled]="!formValid"> <!-- Deshabilitar el botón si el formulario no es válido -->
+    <ion-icon slot="icon-only" name="bag-handle-outline"></ion-icon>
+    Agregar
+  </ion-button>
+  </div>
+</ion-content>
+
+<ng-template #loading>
+  <ion-spinner></ion-spinner>
+</ng-template>

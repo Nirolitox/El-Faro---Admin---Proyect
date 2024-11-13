@@ -1,0 +1,33 @@
+ion-avatar{
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+}
+
+  .photo-btn{
+      position: relative;
+      bottom: 25px;
+  }
+
+  .empty-icon{
+      font-size: 140px;
+      opacity: 30%;
+  }
+
+  .profile-details {
+      background-color: var(--ion-color-light); /* Color de fondo primario */
+      border-radius: 10px; /* Bordes redondeados */
+      padding: 15px; /* Espaciado interno */
+      margin-top: 20px; /* Espacio superior */
+      max-width: 300px; /* Ancho máximo del contenedor */
+      width: 80%; /* Porcentaje del ancho de su contenedor principal */
+      margin-left: auto; /* Centrar el contenedor horizontalmente */
+      margin-right: auto;
+    }
+
+
+  ion-label {
+    display: block; /* Coloca cada ion-label en una nueva línea */
+    margin-bottom: 5px; /* Espacio inferior entre las etiquetas */
+  }
+

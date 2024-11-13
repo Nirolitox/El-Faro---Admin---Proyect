@@ -1,0 +1,73 @@
+<ion-header style="border: none !important; box-shadow: none !important;">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Promociones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Grid para mostrar productos 2 en 2 con animación -->
+  <ion-grid>
+    <ion-row>
+      <ng-container *ngIf="!loading; else loadingTemplate">
+        <ion-col size="6" size-md="3" *ngFor="let promocion of promocions; let i = index" [class.fade-in]="true"
+          [style.animation-delay]="i * 0.1 + 's'">
+          <ion-card>
+            <!-- Imagen con animación -->
+            <img class="ion-padding fade-in-image" [src]="loadImage(promocion)" (click)="OpenPedido(promocion)" (load)="imageLoaded[i] = true"
+              [ngClass]="{'image-loaded': imageLoaded[i]}" />
+
+            <!-- Mostrar el botón solo si hay stock -->
+            <ion-button (click)="OpenPedido(promocion)" fill="solid" shape="round"
+              size="small" color="warning" class="floating-button">
+              <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+            </ion-button>
+
+            <ion-card-header>
+              <ion-card-title>{{ promocion.nombre }}</ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+              <ion-card-subtitle color="warning">Tiempo De Preparación: {{ promocion.tiempo_de_preparacion }}</ion-card-subtitle>
+              <ion-card-subtitle color="success">Precio: {{ promocion.precio }} $</ion-card-subtitle>
+
+              <ion-button color="warning" (click)="detail(promocion)" shape="round">
+                Ver Detalles
+              </ion-button>
+
+
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ng-container>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Skeleton Loading -->
+  <ng-template #loadingTemplate>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" size-md="4" *ngFor="let i of [0,1,2,3,4,5]">
+          <ion-card>
+            <ion-card-header>
+              <ion-skeleton-text animated style="width: 60%; height: 20px;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 40%; height: 16px;"></ion-skeleton-text>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 50%; margin-top: 8px;"></ion-skeleton-text>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
+
+</ion-content>

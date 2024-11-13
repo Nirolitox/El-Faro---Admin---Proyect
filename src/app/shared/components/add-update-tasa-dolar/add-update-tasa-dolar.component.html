@@ -1,0 +1,141 @@
+<ion-header style="border: none !important; box-shadow: none !important;">
+  <ion-toolbar style="--background: transparent; border: none !important; box-shadow: none !important;">
+    <ion-title>Agregar/Actualizar Tasa Del Día</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-text>
+    <h1 class="ion-text-center">Nueva Tasa</h1>
+  </ion-text>
+
+  <div class="input-container">
+
+
+  <!-- <ion-input
+  label="Precio $ Del Paralelo"
+  type="number"
+  label-placement="floating"
+  fill="solid"
+  placeholder="ingresa El Precio"
+  [formControl]="form.controls.valor_paralelo"
+  (ionInput)="onInputCentral($event)" maxlength="5"
+
+  >
+</ion-input>
+
+<div class="validators" *ngIf="form.controls.valor_paralelo.errors && form.controls.valor_paralelo.touched">
+  <div *ngIf="form.controls.valor_paralelo.errors?.['required']">El Precio Del Dólar Es Obligatorio.</div>
+  <div *ngIf="form.controls.valor_paralelo.errors?.['min']">El Precio Tiene Que Ser Mayor A 0.</div>
+</div>
+<br> -->
+
+
+<ion-input
+label="Precio $ Del Banco Central De Venezuela"
+type="number"
+label-placement="floating"
+fill="solid"
+placeholder="ingresa El Precio"
+[formControl]="form.controls.valor_central"
+(ionInput)="onInputCentral($event)" maxlength="5"
+
+>
+</ion-input>
+<div class="validators" *ngIf="form.controls.valor_central.errors && form.controls.valor_central.touched">
+  <div *ngIf="form.controls.valor_central.errors?.['required']">El Precio Del Dólar Es Obligatorio.</div>
+  <div *ngIf="form.controls.valor_central.errors?.['min']">El Precio Tiene Que Ser Mayor A 0.</div>
+</div>
+<br>
+
+<ion-input
+label="Precio Del $ A Manejar"
+type="number"
+label-placement="floating"
+fill="solid"
+placeholder="ingresa El Precio"
+[formControl]="form.controls.valor_local"
+(ionInput)="onInputCentral($event)" maxlength="5"
+
+>
+</ion-input>
+<div class="validators" *ngIf="form.controls.valor_local.errors && form.controls.valor_local.touched">
+  <div *ngIf="form.controls.valor_local.errors?.['required']">El Precio Del Dólar Es Obligatorio.</div>
+  <div *ngIf="form.controls.valor_local.errors?.['min']">El Precio Tiene Que Ser Mayor A 0.</div>
+</div>
+<br>
+
+
+<ion-input
+label="Precio Del Delivery"
+type="number"
+label-placement="floating"
+fill="solid"
+placeholder="ingresa El Precio"
+[formControl]="form.controls.valor_delivery"
+(ionInput)="onInputCentral($event)" maxlength="5"
+
+>
+</ion-input>
+<div class="validators" *ngIf="form.controls.valor_delivery.errors && form.controls.valor_delivery.touched">
+  <div *ngIf="form.controls.valor_delivery.errors?.['required']">El Precio Es Obligatorio.</div>
+  <div *ngIf="form.controls.valor_delivery.errors?.['min']">El Precio Tiene Que Ser Mayor A 0.</div>
+</div>
+<br>
+
+ <!-- Mostrar mensaje si el formulario no es válido -->
+ <ion-text color="danger" *ngIf="form.invalid ">
+  Por favor, completa todos los campos.
+</ion-text>
+
+<div style="display: flex; justify-content: center;">
+  <ion-button (click)="submit()">
+    Agregar Tasa
+    <ion-icon slot="icon-only" name="add"></ion-icon>
+  </ion-button>
+</div>
+
+</div>
+
+<hr size="8px" color="#5ca56c" />
+
+<ion-text>
+  <h1 class="ion-text-center">Última Tasa</h1>
+
+<!-- Skeleton para la tasa paralela -->
+<!-- <p class="ion-text-center">
+  Dólar Paralelo:
+  <span *ngIf="cargando" class="skeleton-wrapper">
+    <ion-skeleton-text animated style="width: 100px; height: 1.5em;"></ion-skeleton-text>
+  </span>
+  <span *ngIf="!cargando">{{ ultimaTasaParalelo + ' Bs.' || 'No disponible' }}</span>
+</p> -->
+
+    <!-- Skeleton para la tasa BCV -->
+    <p class="ion-text-center">
+      Dólar BCV:
+      <span *ngIf="cargando" class="skeleton-wrapper">
+        <ion-skeleton-text animated style="width: 100px; height: 1.5em;"></ion-skeleton-text>
+      </span>
+      <span *ngIf="!cargando">{{ ultimaTasaCentral + ' Bs.' || 'No disponible' }}</span>
+    </p>
+
+        <!-- Skeleton para la tasa BCV -->
+        <p class="ion-text-center">
+          Fecha:
+          <span *ngIf="cargando" class="skeleton-wrapper">
+            <ion-skeleton-text animated style="width: 100px; height: 1.5em;"></ion-skeleton-text>
+          </span>
+          <span *ngIf="!cargando">{{ fecha || 'No disponible' }}</span>
+        </p>
+
+</ion-text>
+
+
+</ion-content>

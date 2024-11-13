@@ -1,0 +1,92 @@
+<ion-header [translucent]="true" style="border: none !important; box-shadow: none !important;">
+  <ion-toolbar style="--background: transparent; border: none !important; box-shadow: none !important;">
+    <ion-title>Pedidos</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Skeleton loader mientras la página carga -->
+  <ng-container *ngIf="loading">
+    <ion-list>
+      <ion-item *ngFor="let item of [1, 2, 3, 4]">
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated style="width: 3em; height: 3em;"></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h2><ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text></h2>
+          <p><ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text></p>
+          <p><ion-skeleton-text animated style="width: 40%;"></ion-skeleton-text></p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+  <!-- Pedidos Por Atender -->
+  <ng-container *ngIf="!loading">
+    <ion-title color="warning">Pedidos Por Atender</ion-title>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list *ngIf="pedidosPorAtender.length > 0 && !pedidoSeleccionado; else noPedidosPorAtender">
+      <ion-item *ngFor="let pedido of pedidosPorAtender">
+        <ion-avatar slot="start">
+          <img *ngIf="pedido.image; else defaultIcon" [src]="getCachedImage(pedido.id) || pedido.image"/>
+          <ng-template #defaultIcon>
+            <ion-icon name="person-circle-outline" style="font-size: 3em;"></ion-icon>
+          </ng-template>
+        </ion-avatar>
+        <ion-label>
+          <h2>Pedido de {{ pedido.name }}</h2>
+          <p>Cédula: {{ pedido.cedula }}</p>
+          <p>Teléfono: {{ pedido.telefono }}</p>
+          <p>Estado: {{ pedido.status }}</p>
+          <p>Total: {{ calcularTotal(pedido.lista_productos) }} $</p>
+        </ion-label>
+        <ion-button fill="clear" slot="end" color="success" (click)="detailpedido(pedido)">
+          Ver Pedido
+        </ion-button>
+      </ion-item>
+    </ion-list>
+
+    <ng-template #noPedidosPorAtender>
+      <ion-text class="ion-text-center">
+        <h2>No hay pedidos pendientes</h2>
+      </ion-text>
+    </ng-template>
+
+    <!-- Pedidos Atendidos -->
+    <ion-title color="primary">Pedidos Atendidos</ion-title>
+    <ion-list *ngIf="pedidosAtendidos.length > 0 && !pedidoSeleccionado; else noPedidosAtendidos">
+      <ion-item *ngFor="let pedido of pedidosAtendidos">
+        <ion-avatar slot="start">
+          <img *ngIf="pedido.image; else defaultIcon" [src]="getCachedImage(pedido.id) || pedido.image"/>
+          <ng-template #defaultIcon>
+            <ion-icon name="person-circle-outline" style="font-size: 3em;"></ion-icon>
+          </ng-template>
+        </ion-avatar>
+        <ion-label>
+          <h2>Pedido de {{ pedido.name }}</h2>
+          <p>Cédula: {{ pedido.cedula }}</p>
+          <p>Teléfono: {{ pedido.telefono }}</p>
+          <p>Estado: {{ pedido.status }}</p>
+          <p>Total: {{ calcularTotal(pedido.lista_productos) }} $</p>
+        </ion-label>
+        <ion-button fill="clear" slot="end" color="success" (click)="detailpedido(pedido)">
+          Ver Pedido
+        </ion-button>
+      </ion-item>
+    </ion-list>
+
+    <ng-template #noPedidosAtendidos>
+      <ion-text class="ion-text-center">
+        <h2>No hay pedidos atendidos</h2>
+      </ion-text>
+    </ng-template>
+  </ng-container>
+</ion-content>

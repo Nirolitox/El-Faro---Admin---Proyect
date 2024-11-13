@@ -1,0 +1,102 @@
+<ion-header style="border: none !important; box-shadow: none !important;">
+  <ion-toolbar style="--background: transparent; border: none !important; box-shadow: none !important;">
+    <ion-title>Crear Promoción</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="form" class="ion-padding ion-text-center" (ngSubmit)="submit()" (keypress.enter)="submit()">
+
+    <!-- Mostrar imagen si existe -->
+    <ion-avatar *ngIf="form.value.image">
+      <img [src]="form.value.image" />
+    </ion-avatar>
+
+    <!-- Mostrar icono si no existe imagen -->
+    <ion-icon class="image-icon" *ngIf="!form.value.image" name="image-outline"></ion-icon>
+    <br>
+
+    <!-- Botón para tomar o seleccionar una foto -->
+    <ion-button color="light" (click)="takeImage()" mode="ios" size="small" shape="round">
+      Tomar/Seleccionar
+    </ion-button>
+    <br>
+
+    <!-- INPUT PARA EL NOMBRE DE LA PROMOCIÓN -->
+    <ion-item>
+      <ion-input
+        label="Nombre De La Promoción"
+        labelPlacement="floating"
+        placeholder="Ingresa Nombre De la Promoción"
+        [formControl]="form.controls.nombre"
+        maxlength="30"
+      ></ion-input>
+    </ion-item><br>
+
+    <!-- INPUT PARA EL TIEMPO DE PREPARACIÓN -->
+    <ion-item>
+      <ion-input
+        label="Tiempo De Preparación"
+        labelPlacement="floating"
+        placeholder="Ingresa El Tiempo De Preparación"
+        [formControl]="form.controls.tiempo_de_preparacion"
+        maxlength="10"
+      ></ion-input>
+    </ion-item><br>
+
+    <!-- INPUT PARA EL PRECIO -->
+    <ion-item>
+      <ion-input
+        type="number"
+        label="Precio En Dólares"
+        labelPlacement="floating"
+        placeholder="Ingresa El Precio"
+        [formControl]="form.controls.precio"
+        maxlength="4"
+      ></ion-input>
+    </ion-item><br>
+
+    <!-- TEXTAREA PARA LA DESCRIPCIÓN -->
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-textarea [formControl]="form.controls.descripcion"></ion-textarea>
+    </ion-item>
+
+    <!-- CONTENEDOR DE PRODUCTOS SELECCIONADOS -->
+   <!-- CONTENEDOR DE PRODUCTOS SELECCIONADOS -->
+<div formArrayName="recetas_utilizadas">
+  <div *ngFor="let producto of form.controls.recetas_utilizadas.controls; let i = index" [formGroupName]="i" class="input-container">
+    <ion-item>
+      <ion-label>Producto</ion-label>
+      <ion-select formControlName="id_receta" interface="popover" (ionChange)="updateNombreProducto(i)">
+        <ion-select-option *ngFor="let receta of recetasMenu" [value]="receta.id">{{ receta.nombre }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Cantidad</ion-label>
+      <ion-input placeholder="Ingresa La Cantidad" formControlName="cantidad" type="number"></ion-input>
+    </ion-item>
+
+    <ion-button color="danger" (click)="removeProducto(i)">Eliminar</ion-button>
+  </div>
+</div>
+
+    <ion-button color="warning" (click)="addProducto()"><ion-icon slot="start" name="add"></ion-icon>
+      Insertar Producto
+    </ion-button>
+    <br>
+
+     <!-- Mostrar mensaje si el formulario no es válido -->
+ <ion-text color="danger" *ngIf="form.invalid ">
+  Por favor, completa todos los campos para guardar la promoción.
+</ion-text>
+
+    <ion-button color="success" (click)="submit()" [disabled]="form.invalid">Guardar Promoción</ion-button>
+  </form>
+</ion-content>

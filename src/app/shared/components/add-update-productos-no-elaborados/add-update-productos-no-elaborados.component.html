@@ -1,0 +1,146 @@
+<ion-header style="border: none !important; box-shadow: none !important;">
+  <ion-toolbar style="--background: transparent; border: none !important; box-shadow: none !important;">
+    <ion-title>Añadir Productos No Elaborados</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <form [formGroup]="form" class="ion-padding ion-text-center" (ngSubmit)="submit()" (keypress.enter)="submit()">
+  <!-- Mostrar imagen si existe -->
+  <ion-avatar *ngIf="form.value.image">
+    <img [src]="form.value.image" />
+  </ion-avatar>
+
+  <!-- Mostrar icono si no existe imagen -->
+  <ion-icon class="image-icon" *ngIf="!form.value.image" name="image-outline"></ion-icon>
+  <br>
+
+  <!-- Botón para tomar o seleccionar una foto -->
+  <ion-button color="light" (click)="takeImage()" mode="ios" size="small" shape="round">
+    Tomar/Seleccionar
+  </ion-button>
+  <br>
+
+  <div class="input-container">
+
+        <!-- INPUT PARA EL NOMBRE DEL PRODUCTO NO ELABORADO -->
+        <ion-item>
+          <ion-input
+            label="Nombre Del Producto"
+            labelPlacement="floating"
+            placeholder="Ingresa Nombre Del Producto"
+            (ionInput)="onInputNombre($event)" maxlength="30"
+            [formControl]="form.controls.nombre"
+          ></ion-input>
+        </ion-item>
+        <div class="validators" *ngIf="form.controls.nombre.errors && form.controls.nombre.touched">
+          <div *ngIf="form.controls.nombre.errors?.['required']">El Precio Es Obligatorio.</div>
+          <div *ngIf="form.controls.nombre.errors?.['min']">El Precio Debe Ser Mayor Que 0.</div>
+        </div>
+        <br>
+
+            <!-- Cantidad a comprar -->
+    <ion-item>
+      <ion-input
+        label="Unidades A Comprar"
+        type="number"
+        labelPlacement="floating"
+        placeholder="Ingresa La Cantidad"
+        [formControl]="form.controls.cantidad_comprar"
+        (ionInput)="onInputCantidad($event)" maxlength="4"
+
+      ></ion-input>
+    </ion-item>
+    <div class="validators" *ngIf="form.controls.cantidad_comprar.errors && form.controls.cantidad_comprar.touched">
+      <div *ngIf="form.controls.cantidad_comprar.errors?.['required']">El Precio Es Obligatorio.</div>
+      <div *ngIf="form.controls.cantidad_comprar.errors?.['min']">El Precio Debe Ser Mayor Que 0.</div>
+    </div>
+    <br>
+
+      <!-- Precio del producto -->
+      <ion-item>
+        <ion-input
+          label="Precio De Compra Del Producto Por Unidad"
+          type="number"
+          labelPlacement="floating"
+          placeholder="Ingresa El Precio Del Producto"
+          [formControl]="form.controls.precio_unidad"
+          (ionInput)="onInputPrecio($event)" maxlength="6"
+
+        ></ion-input>
+      </ion-item>
+      <div class="validators" *ngIf="form.controls.precio_unidad.errors && form.controls.precio_unidad.touched">
+        <div *ngIf="form.controls.precio_unidad.errors?.['required']">El Costo Por Unidad Es Obligatorio.</div>
+        <div *ngIf="form.controls.precio_unidad.errors?.['min']">El Costo Debe Ser Mayor Que 0.</div>
+      </div>
+      <br>
+
+            <!-- Precio De Venta del producto -->
+            <ion-item>
+              <ion-input
+                label="Precio De Venta Del Producto Por Unidad"
+                type="number"
+                labelPlacement="floating"
+                placeholder="Ingresa El Precio Del Producto"
+                [formControl]="form.controls.precio_venta"
+                (ionInput)="onInputPrecio($event)" maxlength="6"
+
+              ></ion-input>
+            </ion-item>
+            <div class="validators" *ngIf="form.controls.precio_venta.errors && form.controls.precio_venta.touched">
+              <div *ngIf="form.controls.precio_venta.errors?.['required']">El Costo Por Unidad Es Obligatorio.</div>
+              <div *ngIf="form.controls.precio_venta.errors?.['min']">El Costo Debe Ser Mayor Que 0.</div>
+            </div>
+            <br>
+
+      <!-- SELECT para el tipo de tasa -->
+      <ion-item>
+        <ion-select
+          class="always-flip"
+          toggleIcon="caret-down-sharp"
+          interface="popover"
+          label="Tasa Del Dólar A Pagar."
+          [formControl]="form.controls.tipo_tasa" >
+          <ion-select-option value="BCV">Dólar BCV</ion-select-option>
+        </ion-select>
+      </ion-item><br>
+
+      <ion-item>
+      <ion-label position="floating"
+
+      >Descripción</ion-label>
+        <ion-textarea
+      [formControl]="form.controls.descripcion"
+        ></ion-textarea>
+      </ion-item>
+
+    </div>
+
+     <!-- Mostrar total en dólares y bolívares -->
+     <ion-text class="valor-total-text">
+      Total En $: {{ valorTotalDolares }} <br><br>
+      Total En Bs: {{ valorTotalBs }}
+    </ion-text><br>
+
+         <!-- Mostrar mensaje si el formulario no es válido -->
+ <ion-text color="danger" *ngIf="form.invalid ">
+  Por favor, completa todos los campos.
+</ion-text> <br>
+
+
+    <!-- Botón de agregar/actualizar -->
+    <ion-button color="primary" mode="ios" class="ion-margin" type="submit" [disabled]="form.invalid">
+      {{products ? 'Actualizar Producto' : 'Agregar Producto'}}
+      <ion-icon slot="end" name="add-outline"></ion-icon>
+    </ion-button>
+
+  </form>
+
+
+</ion-content>

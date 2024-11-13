@@ -1,0 +1,58 @@
+ion-col.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-image {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.image-loaded {
+  opacity: 1;
+}
+
+.card-with-button {
+  position: relative;
+}
+
+.floating-button {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  z-index: 10;
+  --background: #3880ff; /* Puedes cambiar el color aquí */
+}
+
+.notification-button {
+  position: relative;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px; /* Ajusta esta posición según el tamaño del badge e icono */
+  right: -5px; /* Ajusta esta posición según el tamaño del badge e icono */
+  font-size: 0.7rem;
+  min-width: 18px;
+  min-height: 18px;
+  padding: 0; /* Quita padding para un tamaño más compacto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* Hace el badge completamente redondo */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombras opcionales para resaltar */
+}
+
+

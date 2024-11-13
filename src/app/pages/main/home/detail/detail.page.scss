@@ -1,0 +1,53 @@
+ion-avatar{
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+}
+.profile-details {
+    background-color: var(--ion-color-light); /* Color de fondo primario */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 15px; /* Espaciado interno */
+    margin-top: 20px; /* Espacio superior */
+    max-width: 300px; /* Ancho máximo del contenedor */
+    width: 100%; /* Porcentaje del ancho de su contenedor principal */
+    margin-left: auto; /* Centrar el contenedor horizontalmente */
+    margin-right: auto;
+  }
+  
+  .profile-detailes {
+    background-color: var(--ion-color-danger); /* Color de fondo primario */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 15px; /* Espaciado interno */
+    margin-top: 20px; /* Espacio superior */
+    max-width: 300px; /* Ancho máximo del contenedor */
+    width: 100%; /* Porcentaje del ancho de su contenedor principal */
+    margin-left: auto; /* Centrar el contenedor horizontalmente */
+    margin-right: auto;
+  }
+
+  .profile-detailes ion-label {
+    margin-bottom: 10px; /* Espacio inferior entre elementos */
+    color: rgb(255, 255, 255); /* Color del texto */
+    text-align: left; /* Alineación del texto a la izquierda */
+  }
+  
+  .profile-details h2 {
+    margin-bottom: 10px; /* Espacio inferior entre elementos */
+    color: rgb(0, 0, 0); /* Color del texto */
+  }
+  
+  .profile-details h3 {
+    margin-bottom: 10px; /* Espacio inferior entre elementos */
+    color: rgb(0, 0, 0); /* Color del texto */
+  }
+  .profile-details ion-label {
+    margin-bottom: 10px; /* Espacio inferior entre elementos */
+    color: rgb(0, 0, 0); /* Color del texto */
+    text-align: left; /* Alineación del texto a la izquierda */
+  }
+  
+  
+  ion-label {
+    display: block; /* Coloca cada ion-label en una nueva línea */
+    margin-bottom: 5px; /* Espacio inferior entre las etiquetas */
+  }

@@ -1,0 +1,82 @@
+  <ion-header style="border: none !important; box-shadow: none !important;">
+    <ion-toolbar>
+    <ion-title></ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/auth"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <div class="d-flex-center">
+    <!-- <img src="assets/sio.png" alt="Logo" width="200" height="150"> -->
+    <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (Keypress.enter)="submit()"><br><br><br>
+
+      <img src="assets/farologo.png" class="logo-image">
+      <h1>Registro</h1>
+
+      <div class="input-container">
+
+      <app-custom-input
+      autocomplete="name"
+      icon="card-outline"
+      [control]="form.controls.cedula"
+      type="number"
+      label="Cédula"
+      (ionInput)="onInputCedula($event)" maxlength="8"
+      ></app-custom-input>
+
+      <app-custom-input
+  autocomplete="name"
+  icon="person-circle-outline"
+  [control]="form.controls.name"
+  type="text"
+  label="Nombre y Apellido"
+  (ionInput)="onInputNombreApellido($event)"
+  maxlength="40"
+></app-custom-input>
+<div *ngIf="form.controls.name.errors" class="error-message">
+  El nombre no puede contener números ni caracteres especiales.
+</div>
+
+      <app-custom-input
+      autocomplete="name"
+      icon="person-circle-outline"
+      [control]="form.controls.telefono"
+      type="number"
+      label="Teléfono"
+      (ionInput)="onInputTelefono($event)" maxlength="11"
+      ></app-custom-input>
+
+
+      <app-custom-input
+      autocomplete="email"
+      icon="logo-google"
+      [control]="form.controls.email"
+      type="email"
+      label="Correo"
+      (ionInput)="onInputCorreo($event)" maxlength="65"
+      ></app-custom-input>
+
+      <app-custom-input
+      [control]="form.controls.password"
+      icon="lock-closed-outline"
+      type="password"
+      label="Contraseña"
+      class="icon-right"
+      (ionInput)="onInputPassword($event)" maxlength="52"
+
+      ></app-custom-input>
+
+      </div>
+
+      <ion-button color="light" expand="block" mode="ios" class="submit" type="submit" [disabled]="form.invalid">
+        Registrarse
+        <ion-icon slot="end" name="person-add-outline"></ion-icon>
+      </ion-button>
+
+
+
+    </form>
+  </div>
+</ion-content>

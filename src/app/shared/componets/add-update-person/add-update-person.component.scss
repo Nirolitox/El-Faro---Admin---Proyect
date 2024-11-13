@@ -1,0 +1,36 @@
+.image-icon{
+    font-size: 100px;
+    opacity: 30%;
+}
+
+ion-avatar{
+    width: 200px;
+    height: 160;
+    --border-radius: 15px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+
+.custom-select {
+  --background:red;
+}
+.input-container {
+    background-color: #4a4a4a69; /* Color de fondo blanco */
+    padding: 10px; /* Espacio interno de 20px */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.945); /* Sombra suave alrededor del contenedor */
+    margin-bottom: 10px; /* Espacio debajo del contenedor */
+  }
+
+  .input-containers {
+    background-color: #b20000dd; /* Color de fondo blanco */
+    padding: 10px; /* Espacio interno de 20px */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.945); /* Sombra suave alrededor del contenedor */
+    margin-bottom: 10px; /* Espacio debajo del contenedor */
+  }

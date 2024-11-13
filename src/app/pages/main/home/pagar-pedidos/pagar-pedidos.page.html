@@ -1,0 +1,95 @@
+<ion-header style="border: none !important; box-shadow: none !important;">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Pagar Pedidos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-text color="warning">
+    <h1 class="ion-padding-start">Confirma tu Pago</h1>
+  </ion-text>
+
+  <!-- Mostrar los productos a pagar -->
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" *ngFor="let pedido of lista_productos">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ pedido.producto }}</ion-card-title>
+            <ion-card-subtitle color="warning">Cantidad: {{ pedido.cantidad }}</ion-card-subtitle>
+            <ion-card-subtitle color="warning">Categoria: {{ pedido.categoria }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <!-- <ion-card-subtitle color="success">Sub Total: {{ pedido.sub_total }} $</ion-card-subtitle> -->
+            <ion-card-subtitle color="danger">Tipo de entrega: {{ pedido.tipo_entrega }}</ion-card-subtitle>
+            <ion-card-subtitle *ngIf="pedido.tipo_entrega === 'Delivery'" color="primary">Ubicación: {{ pedido.location }}</ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Seleccionar el método de pago -->
+  <ion-item>
+    <ion-label position="stacked">Método de Pago</ion-label>
+    <ion-select [(ngModel)]="metodoPago" placeholder="Selecciona el método" (ionChange)="onMetodoPagoChange()">
+      <ion-select-option value="PagoMóvil">PagoMóvil</ion-select-option>
+      <ion-select-option value="Transferencia">Transferencia</ion-select-option>
+      <ion-select-option value="Efectivo">Efectivo</ion-select-option>
+      <ion-select-option value="Divisas">Divisas</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Información bancaria para Transferencia -->
+  <div *ngIf="metodoPago === 'Transferencia'" class="ion-padding">
+    <ion-text color="primary">
+      <p><strong>Titular:</strong> Mervin Fermin</p>
+      <ion-button fill="outline" size="small" (click)="copyText('Mervin Fermin')">Copiar</ion-button>
+
+      <p><strong>Tipo de Cuenta:</strong> Corriente</p>
+      <ion-button fill="outline" size="small" (click)="copyText('Corriente')">Copiar</ion-button>
+
+      <p><strong>Banco:</strong> Provincial</p>
+      <ion-button fill="outline" size="small" (click)="copyText('Provincial')">Copiar</ion-button>
+
+      <p><strong>Nro de Cuenta:</strong> 01080122280100234592</p>
+      <ion-button fill="outline" size="small" (click)="copyText('01080122280100234592')">Copiar</ion-button>
+    </ion-text>
+  </div>
+
+  <!-- Información para PagoMóvil -->
+  <div *ngIf="metodoPago === 'PagoMóvil'" class="ion-padding">
+    <ion-text color="primary">
+      <p><strong>Banco:</strong> Provincial</p>
+      <p><strong>Cédula:</strong> 10215031</p>
+      <p><strong>Teléfono:</strong> 04124881354</p>
+      <ion-button fill="outline" (click)="copyText('0108 10215031 04124881354')">Copiar</ion-button>
+    </ion-text>
+  </div>
+
+  <ion-item *ngIf="mostrarSubirImagen">
+    <ion-label position="stacked">Subir Comprobante de Pago</ion-label>
+    <ion-button expand="block" color="tertiary" (click)="takeImage()">
+      <ion-icon slot="start" name="camera"></ion-icon>
+      Seleccionar Imagen
+    </ion-button>
+    <ion-img *ngIf="imagePago" [src]="imagePago" class="ion-margin-top"></ion-img>
+  </ion-item>
+
+  <!-- Botón para enviar el pago -->
+  <ion-card class="ion-text-center ion-margin-top">
+    <ion-card-header>
+      <!-- <ion-title>Sub Total: {{ calculateTotal() }} $</ion-title> -->
+      <!-- <ion-title>Sub Total en Bs: {{ calculateTotalBs() }} Bs</ion-title> -->
+    </ion-card-header>
+    <ion-button color="success" expand="block" (click)="enviarPago()">
+      <ion-icon slot="start" name="cash-outline"></ion-icon>
+      Enviar Pago
+    </ion-button>
+  </ion-card>
+</ion-content>

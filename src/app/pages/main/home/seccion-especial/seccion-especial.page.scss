@@ -1,0 +1,38 @@
+// /* Animación para desvanecerse y moverse hacia arriba */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Efecto de carga de imagen */
+.image-loaded {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Imagen inicial con opacidad 0, esperando a cargar */
+.fade-in-image {
+  // opacity: 0;
+  transition: opacity 0.5s ease-in-out; /* Transición suave cuando la imagen se carga */
+}
+
+.card-with-button {
+  position: relative;
+}
+
+.floating-button {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  z-index: 10;
+  --background: #3880ff; /* Puedes cambiar el color aquí */
+}
+

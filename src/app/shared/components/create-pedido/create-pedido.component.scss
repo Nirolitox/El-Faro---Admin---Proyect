@@ -1,0 +1,31 @@
+.quantity-selector {
+  display: flex; /* Utiliza Flexbox para alinear los elementos */
+  align-items: center; /* Alinea verticalmente los elementos al centro */
+  justify-content: center; /* Centra el contenido horizontalmente */
+  background-color: rgba(74, 74, 74, 0.4); /* Color de fondo con opacidad */
+  padding: 5px; /* Espacio interno */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Sombra más suave */
+  margin: 0 auto 20px; /* Centra el contenedor y añade margen inferior */
+  gap: 10px; /* Espacio entre los elementos */
+  max-width: 200px; /* Ancho máximo del contenedor */
+  width: 100%; /* Asegúrate de que use el 100% de su contenedor padre */
+  /* Alternativamente, puedes usar un ancho fijo como: width: 150px; */
+}
+ion-title {
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+}
+
+.pedido{
+  display: flex; /* Utiliza Flexbox para alinear los elementos */
+  align-items: center; /* Alinea verticalmente los elementos al centro */
+  justify-content: center; /* Centra el contenido horizontalmente */
+  background-color: rgba(74, 74, 74, 0.4); /* Color de fondo con opacidad */
+  padding: 5px; /* Espacio interno */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Sombra más suave */
+  margin: 0 auto 20px; /* Centra el contenedor y añade margen inferior */
+  gap: 10px; /* Espacio entre los elementos */
+  // max-width: 200px; /* Ancho máximo del contenedor */
+  width: 50%; /* Asegúrate de que use el 100% de su contenedor padre */
+}

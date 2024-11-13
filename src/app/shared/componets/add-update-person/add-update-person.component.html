@@ -1,0 +1,279 @@
+<ion-content color="primary">
+  <app-header [isModal]="true" [title]=" pacien ? 'Actualizar Miembro' : 'Registrar Miembro'"></app-header>
+  <br>
+
+  <h1 color="primary">DATOS PRINCIPALES</h1>
+
+
+  <form [formGroup]="form" class="ion-paddin ion-text-center" (ngSubmit)="submit()" (keypress.enter)="submit()">
+
+    <!-- ===SI EXISTE UNA IMAGEN -->
+    <ion-avatar *ngIf="form.value.image">
+      <img [src]="form.value.image" />
+    </ion-avatar>
+
+    <!-- =====SI NO EXISTE===== -->
+    <ion-icon class="image-icon" *ngIf="!form.value.image" name="image-outline"></ion-icon>
+    <br>
+
+    <!-- Tomar/Seleccionar Una FOTO -->
+    <ion-button (click)="takeImage()" color="light" mode="ios" size="small" shape="round">
+      Tomar/Seleccionar
+    </ion-button>
+
+    <br>
+    <div class="input-container">
+
+
+    <!-- ======CEDULA===== -->
+    <app-custom-input icon="card-outline" [control]="form.controls.cedula" type="number" label="Cédula" 
+    (ionInput)="onInput($event)" maxlength="8"></app-custom-input>
+<div class="validators" *ngIf="form.controls.cedula.errors && form.controls.cedula.touched">
+  <div *ngIf="form.controls.cedula.errors?.['required']">La Cedula Es Obligatoria</div>
+  <div *ngIf="form.controls.cedula.errors?.['minlength']">Debe Tener Al Menos 4 Caracteres</div>
+</div>
+
+
+    <!-- ======NOMBRES===== -->
+    <app-custom-input autocomplete="name" icon="person-circle-outline" [control]="form.controls.nombres" type="text"
+      label="Nombres"
+      ></app-custom-input>
+
+    <!-- =======APELLIDOS====== -->
+
+    <app-custom-input autocomplete="name" icon="person-circle-outline" [control]="form.controls.apellidos" type="text"
+      label="Apellidos"></app-custom-input>
+
+    <!-- =====EDAD====== -->
+
+    <app-custom-input icon="calendar-outline" [control]="form.controls.edad" type="number" label="Edad" (ionChange)="onEdadChange($event)"></app-custom-input>
+
+
+    <!-- =====FECHA DE NACIMIENTO -->
+
+    <app-custom-input icon="calendar-outline" [control]="form.controls.fechanacimiento" type="date"
+      label="Fecha de Nacimiento"></app-custom-input>
+
+     <!-- =====DIRECCION==== -->
+
+    <app-custom-input icon="location-outline" [control]="form.controls.direccion" type="text"
+      label="Dirección"></app-custom-input>
+
+    <!-- =====NUMERO DE TELEFONO(OPCIONAL) -->
+
+    <app-custom-input icon="call-outline" [control]="form.controls.telefono" type="tel"
+      label="Teléfono"></app-custom-input>
+
+    <!-- =====OCUPACION===== -->
+
+    <app-custom-input icon="bag-outline" [control]="form.controls.ocupacion" type="text"
+      label="Ocupacion"></app-custom-input>
+    <!-- ====PESO==== -->
+
+    <app-custom-input icon="body-outline" [control]="form.controls.peso" type="number"
+      label="Peso en KG"></app-custom-input>
+
+
+
+    <!-- ====ESTATURA=== -->
+
+
+    <app-custom-input icon="body-outline" [control]="form.controls.estatura" type="number"
+      label="Estatura en M"></app-custom-input>
+    <!-- =====NUMERO DE EMERGENCIA===== -->
+
+    <app-custom-input icon="call-outline" [control]="form.controls.telefonoEmergencia" type="tel"
+      label="NRO de Emergencia"></app-custom-input>
+
+    <!-- ====TIPO DE SANGRE -->
+
+    <ion-item>
+      <ion-icon name="water"></ion-icon>
+      <ion-label>Tipeaje Sanguineo</ion-label>
+      <ion-select formControlName="tipoSangre" class="custom-select">
+        <ion-select-option value="A+">A+</ion-select-option>
+        <ion-select-option value="A-">A-</ion-select-option>
+        <ion-select-option value="B+">B+</ion-select-option>
+        <ion-select-option value="B-">B-</ion-select-option>
+        <ion-select-option value="O+">O+</ion-select-option>
+        <ion-select-option value="O-">O-</ion-select-option>
+        <ion-select-option value="AB+">AB+</ion-select-option>
+        <ion-select-option value="AB-">AB-</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <br>
+
+
+
+      
+      <!-- ====CARRRERA -->
+
+      <ion-item>
+        <ion-icon name="school-outline"></ion-icon>
+        <ion-label>Carrera</ion-label>
+        <ion-select formControlName="carrera" class="custom-select" (ionChange)="selectedCarrera = $event.detail.value">
+          <ion-select-option value="Informática">Informática</ion-select-option>
+          <ion-select-option value="Adm De Empresas">Administración De Empresas</ion-select-option>
+          <ion-select-option value="Adm De Personal">Administración De Personal</ion-select-option>
+          <ion-select-option value="Edc Preescolar">Preescolar</ion-select-option>
+          <ion-select-option value="Teologia">Teología</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <br>
+
+     <!-- ====SEMESTRE -->
+
+  <!-- ====SEMESTRE ====-->
+<ion-item *ngIf="selectedCarrera === 'Teologia'">
+  <ion-icon name="receipt-outline"></ion-icon>
+  <ion-label>Semestre</ion-label>
+  <ion-select formControlName="semestre" class="custom-select">
+    <ion-select-option value="I">I</ion-select-option>
+    <ion-select-option value="II">II</ion-select-option>
+    <ion-select-option value="III">III</ion-select-option>
+    <ion-select-option value="IV">IV</ion-select-option>
+    <ion-select-option value="V">V</ion-select-option>
+    <ion-select-option value="VI">VI</ion-select-option>
+    <ion-select-option value="VII">VII</ion-select-option>
+    <ion-select-option value="VIII">VIII</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item *ngIf="selectedCarrera !== 'Teologia'">
+  <ion-icon name="receipt-outline"></ion-icon>
+  <ion-label>Semestre</ion-label>
+  <ion-select formControlName="semestre" class="custom-select">
+    <ion-select-option value="I">I</ion-select-option>
+    <ion-select-option value="II">II</ion-select-option>
+    <ion-select-option value="III">III</ion-select-option>
+    <ion-select-option value="IV">IV</ion-select-option>
+    <ion-select-option value="V">V</ion-select-option>
+  </ion-select>
+</ion-item>
+
+  </div>
+
+    <br> 
+    
+    <ion-accordion-group expand="inset">
+      <ion-accordion value="first">
+        <ion-item slot="header" color="danger">
+  
+  
+          <ion-label style="text-align: center;">
+            <ion-icon name="create-outline" slot="start">
+            </ion-icon>
+            ANTECEDENTES
+          </ion-label>
+        </ion-item>
+        <div class="content-wrapper" slot="content">
+
+          <!-- ASMA BRONQUIAL -->
+
+          <ion-item>
+            <ion-label>Asma Bronquial</ion-label>
+            <ion-checkbox formControlName="asma" (ionChange)="updateAsma($event.detail.checked)"></ion-checkbox>
+          </ion-item>
+          
+          <ion-item *ngIf="asma">
+            <ion-label position="stacked">Desde Cuándo?</ion-label>
+            <ion-input type="text" formControlName="desdeCuando"></ion-input>
+          </ion-item>
+          
+          <ion-item *ngIf="asma">
+            <ion-label position="stacked">Tratamiento Actual:</ion-label>
+            <ion-input type="text" formControlName="tratamientoActual"></ion-input>
+          </ion-item>
+          
+          <ion-item *ngIf="asma">
+            <ion-label position="stacked">Última Crisis:</ion-label>
+            <ion-input type="text" formControlName="ultimaCrisis"></ion-input>
+          </ion-item>
+
+          <!-- ======================================================================= -->
+
+          <!-- HIPERTENCION -->
+          
+          <ion-item>
+            <ion-label>Hipertencion</ion-label>
+            <ion-checkbox formControlName="hipertencion" (ionChange)="updateHipertencion($event.detail.checked)"></ion-checkbox>
+          </ion-item>
+          
+          <ion-item *ngIf="hipertencion">
+            <ion-label position="stacked">Fecha De Diagnóstico</ion-label>
+            <ion-input type="text" formControlName="fechadiagnostico"></ion-input>
+          </ion-item>
+          
+          <ion-item *ngIf="hipertencion">
+            <ion-label position="stacked">Tratamiento Actual:</ion-label>
+            <ion-input type="text" formControlName="tratamientoActualHiper"></ion-input>
+          </ion-item>
+
+          <!-- =============================================================== -->
+
+
+            <!--DIABETES  -->
+
+            <ion-item>
+              <ion-label>Diabetes</ion-label>
+              <ion-checkbox formControlName="diabetes" (ionChange)="updateDiabetes($event.detail.checked)"></ion-checkbox>
+            </ion-item>
+            
+            <ion-item *ngIf="diabetes">
+              <ion-label position="stacked">Fecha De Diagnóstico</ion-label>
+              <ion-input type="text" formControlName="fechadiagnosticodiabete"></ion-input>
+            </ion-item>
+            
+            <ion-item *ngIf="diabetes">
+              <ion-label position="stacked">Tratamiento Actual:</ion-label>
+              <ion-input type="text" formControlName="tratamientoActualdiabete"></ion-input>
+            </ion-item>
+            
+
+            <!--============================================== -->
+
+            <!-- Quirúrgicos -->
+
+            <ion-item>
+              <ion-label>Quirúrgicos</ion-label>
+              <ion-checkbox formControlName="Quirurgicos" (ionChange)="updateQuirurgicos($event.detail.checked)"></ion-checkbox>
+            </ion-item>
+
+            <ion-item *ngIf="Quirurgicos">
+              <ion-icon name="create-outline" slot="start"></ion-icon>
+              <ion-textarea formControlName="descripcion" [autoGrow]="true" labelPlacement="floating">
+                <div slot="label"><ion-text color="primary">Descripcion</ion-text></div>
+              </ion-textarea>
+            </ion-item>
+           <!--============================================== -->
+
+           <!-- Vacunas Anticovid -->
+
+           <ion-item>
+            <ion-label>Vacunas Anticovid</ion-label>
+            <ion-checkbox formControlName="anticovid" (ionChange)="updateAnticovid($event.detail.checked)"></ion-checkbox>
+          </ion-item>
+
+          <ion-item *ngIf="anticovid">
+            <ion-icon name="create-outline" slot="start"></ion-icon>
+            <ion-textarea formControlName="descripcionanticovid" [autoGrow]="true" labelPlacement="floating">
+              <div slot="label"><ion-text color="primary">Descripcion</ion-text></div>
+            </ion-textarea>
+          </ion-item>
+         <!--============================================== -->
+
+            
+  
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+    
+
+    <!-- =====BOTON DE AGREGAR PACIENTE -->
+
+    <ion-button color="light" mode="ios" class="ion-margin" type="submit">
+      {{pacien ? 'Actualizar Paciente' : 'Agregar Paciente'}}
+      <ion-icon slot="end" name="person-add-outline"></ion-icon>
+    </ion-button>
+
+  </form>
+</ion-content>

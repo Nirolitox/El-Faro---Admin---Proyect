@@ -1,0 +1,54 @@
+<ion-header style="border: none !important; box-shadow: none !important;">
+  <ion-toolbar style="--background: transparent; border: none !important; box-shadow: none !important;">
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Skeleton para la tasa paralela -->
+<p class="ion-text-center">
+  Dólar Paralelo:
+  <span *ngIf="cargando" class="skeleton-wrapper">
+    <ion-skeleton-text animated style="width: 100px; height: 1.5em;"></ion-skeleton-text>
+  </span>
+  <span *ngIf="!cargando">{{ ultimaTasaParalelo + ' Bs.' || 'No disponible' }}</span>
+</p>
+
+    <!-- Skeleton para la tasa BCV -->
+    <p class="ion-text-center">
+      Dólar BCV:
+      <span *ngIf="cargando" class="skeleton-wrapper">
+        <ion-skeleton-text animated style="width: 100px; height: 1.5em;"></ion-skeleton-text>
+      </span>
+      <span *ngIf="!cargando">{{ ultimaTasaCentral + ' Bs.' || 'No disponible' }}</span>
+    </p>
+
+        <!-- Skeleton para la tasa Local -->
+        <p class="ion-text-center">
+          Dólar Local:
+          <span *ngIf="cargando" class="skeleton-wrapper">
+            <ion-skeleton-text animated style="width: 100px; height: 1.5em;"></ion-skeleton-text>
+          </span>
+          <span *ngIf="!cargando">{{ ultimaTasaLocal + ' Bs.' || 'No disponible' }}</span>
+        </p>
+
+                <!-- Skeleton para la tasa del delivery -->
+                <p class="ion-text-center">
+                  Delivery:
+                  <span *ngIf="cargando" class="skeleton-wrapper">
+                    <ion-skeleton-text animated style="width: 100px; height: 1.5em;"></ion-skeleton-text>
+                  </span>
+                  <span *ngIf="!cargando">{{ ultimaTasaDelivery + ' Bs.' || 'No disponible' }}</span>
+                </p>
+
+            <!-- Skeleton para la Fecha -->
+            <p class="ion-text-center">
+              Fecha:
+              <span *ngIf="cargando" class="skeleton-wrapper">
+                <ion-skeleton-text animated style="width: 100px; height: 1.5em;"></ion-skeleton-text>
+              </span>
+              <span *ngIf="!cargando">{{ fecha || 'No disponible' }}</span>
+            </p>
+</ion-content>

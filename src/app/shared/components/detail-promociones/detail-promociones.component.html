@@ -1,0 +1,52 @@
+<ion-header style="border: none !important; box-shadow: none !important;">
+  <ion-toolbar style="--background: transparent; border: none !important; box-shadow: none !important;">
+    <ion-title>Detalle de la Promoción</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="ion-padding ion-text-center">
+    <!-- Mostrar imagen de la promoción -->
+    <!-- <ion-avatar *ngIf="promocion.image"> -->
+      <img [src]="promocion.image" alt="Imagen de la Promoción" />
+    <!-- </ion-avatar> -->
+
+    <!-- Título de la promoción -->
+    <h2>{{ promocion.nombre }}</h2>
+
+    <!-- Descripción -->
+    <p class="descripcion">{{ promocion.descripcion }}</p>
+
+    <!-- Precio en dólares -->
+    <ion-item>
+      <ion-label color="dark"><strong>Precio: </strong> ${{ promocion.precio | number: '1.2-2' }}</ion-label>
+    </ion-item>
+
+    <!-- Tiempo de preparación -->
+    <ion-item *ngIf="promocion.tiempo_de_preparacion">
+      <ion-label color="dark"><strong>Tiempo de preparación:</strong> {{ promocion.tiempo_de_preparacion }}</ion-label>
+    </ion-item>
+
+    <!-- Lista de ingredientes o productos utilizados -->
+    <ion-card *ngIf="promocion.recetas_utilizadas && promocion.recetas_utilizadas.length">
+      <ion-card-header>
+        <ion-card-title>Contiene</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ul>
+          <li *ngFor="let ingrediente of promocion.recetas_utilizadas">
+            {{ ingrediente.cantidad }}  {{ ingrediente.nombre }}
+          </li>
+        </ul>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Botón para cerrar el modal -->
+    <ion-button color="secondary" (click)="close()">Cerrar</ion-button>
+  </div>
+</ion-content>

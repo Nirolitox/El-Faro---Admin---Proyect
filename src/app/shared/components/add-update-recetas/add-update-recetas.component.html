@@ -1,0 +1,116 @@
+<ion-header style="border: none !important; box-shadow: none !important;">
+  <ion-toolbar style="--background: transparent; border: none !important; box-shadow: none !important;">
+    <ion-title>Crear Recetas</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="form" class="ion-padding ion-text-center" (ngSubmit)="submit()" (keypress.enter)="submit()">
+
+    <!-- Mostrar imagen si existe -->
+    <ion-avatar *ngIf="form.value.image">
+      <img [src]="form.value.image" />
+    </ion-avatar>
+
+    <!-- Mostrar icono si no existe imagen -->
+    <ion-icon class="image-icon" *ngIf="!form.value.image" name="image-outline"></ion-icon>
+    <br>
+
+    <!-- Botón para tomar o seleccionar una foto -->
+    <ion-button color="light" (click)="takeImage()" mode="ios" size="small" shape="round">
+      Tomar/Seleccionar
+    </ion-button>
+    <br>
+
+    <!-- INPUT PARA EL NOMBRE DEL PRODUCTO -->
+    <ion-item>
+      <ion-label position="floating">Nombre Del Producto</ion-label>
+      <ion-input
+        placeholder="Ingresa Nombre Del Producto"
+        [formControl]="form.controls.nombre"
+        (ionInput)="onInputNombre($event)" maxlength="30">
+      </ion-input>
+    </ion-item>
+    <br>
+
+    <!-- INPUT PARA EL TIEMPO DE PREPARACIÓN -->
+    <ion-item>
+      <ion-label position="floating">Tiempo De Preparación</ion-label>
+      <ion-input
+        placeholder="Ingresa El Tiempo De Preparación"
+        [formControl]="form.controls.tiempo_de_preparacion"
+        (ionInput)="onInputTiempo($event)" maxlength="10">
+      </ion-input>
+    </ion-item>
+    <br>
+
+    <!-- INPUT DE PRECIO -->
+    <ion-item>
+      <ion-label position="floating">Precio En Dólares</ion-label>
+      <ion-input
+        type="number"
+        placeholder="Ingresa El Precio"
+        [formControl]="form.controls.precio"
+        (ionInput)="onInputPrecio($event)" maxlength="4">
+      </ion-input>
+    </ion-item>
+    <br>
+
+    <!-- SELECT PARA EL TIPO DE CATEGORÍA -->
+    <ion-item>
+      <ion-label>Sección</ion-label>
+      <ion-select [formControl]="form.controls.categoria" interface="action-sheet" placeholder="Seleccione La Categoría">
+        <ion-select-option value="Bebidas">Bebidas</ion-select-option>
+        <ion-select-option value="Menu">Menú</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <br>
+
+    <!-- TEXTAREA PARA LA DESCRIPCIÓN -->
+    <ion-item>
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-textarea [formControl]="form.controls.descripcion"></ion-textarea>
+    </ion-item>
+
+    <!-- Contenedor de productos seleccionados -->
+    <div formArrayName="ingredientes_utilizados">
+      <div *ngFor="let producto of ingredientes_utilizados.controls; let i = index" [formGroupName]="i" class="input-container">
+        <ion-item>
+          <ion-label>Ingrediente</ion-label>
+          <ion-select formControlName="id_ingrediente" interface="popover" (ionChange)="updateNombreIngrediente(i)">
+            <ion-select-option *ngFor="let product of productos" [value]="product.id">{{ product.nombre }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Cantidad</ion-label>
+          <ion-input placeholder="Ingrese La Cantidad En Kg O LT" formControlName="medida" type="number" (ionInput)="onInputCantidad($event)" maxlength="5">
+            </ion-input>
+        </ion-item>
+
+        <ion-button color="danger" (click)="removeProducto(i)">Eliminar</ion-button>
+      </div>
+    </div>
+    
+
+    <ion-button color="warning" (click)="addProducto()">
+      <ion-icon slot="start" name="add"></ion-icon>
+      Insertar Ingredientes
+    </ion-button>
+    <br>
+
+    <ion-text color="danger" *ngIf="form.invalid">
+      Por favor, complete todos los campos para guardar la receta.
+    </ion-text>
+    
+    <ion-button color="success" type="submit" [disabled]="!form.valid || ingredientes_utilizados.length === 0">
+      Guardar Receta
+    </ion-button>
+    
+  </form>
+</ion-content>

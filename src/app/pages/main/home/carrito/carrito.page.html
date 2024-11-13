@@ -1,0 +1,90 @@
+<ion-header style="border: none; box-shadow: none;">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Mis Pedidos</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="openPopover($event)" class="notification-button">
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+        <ion-badge *ngIf="notificationCount > 0" color="danger" class="notification-badge">{{ notificationCount }}</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+
+  <ion-text color="warning">
+    <h1 class="ion-padding-start">Pedidos Pendientes</h1>
+  </ion-text>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+    <!-- Mostrar mensaje si no hay pedidos -->
+    <div *ngIf="pedidos.length === 0 && !loading" class="ion-text-center ion-padding">
+      <ion-text color="medium">
+        <p>No hay ningún pedido realizado.</p>
+      </ion-text>
+    </div>
+
+    <!-- Template para mostrar mientras los datos están cargando -->
+    <ng-template #loadingTemplate>
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando pedidos...</p>
+    </ng-template>
+
+    <ion-grid>
+      <ion-row>
+        <ng-container *ngIf="!loading; else loadingTemplate">
+          <ion-col size="6" size-md="3" *ngFor="let pedido of pedidos; let i = index" [class.fade-in]="true" [style.animation-delay]="i * 0.1 + 's'">
+            <ion-card [ngClass]="{'opaque': pedido.status === 'En Espera...'}">
+              <!-- Imagen con animación -->
+              <img
+                class="ion-padding fade-in-image"
+                [src]="loadImage(pedido)"
+                (load)="imageLoaded[i] = true"
+                [ngClass]="{'image-loaded': imageLoaded[i]}" />
+
+              <ion-card-header>
+                <ion-card-title>{{ pedido.producto }}</ion-card-title>
+                <ion-card-subtitle color="warning">Cantidad | {{ pedido.cantidad }}</ion-card-subtitle>
+              </ion-card-header>
+
+              <ion-card-content>
+                <ion-card-subtitle color="success">Sub Total | {{ pedido.sub_total }} $</ion-card-subtitle>
+                <ion-card-subtitle color="danger">Status | {{ pedido.status }}</ion-card-subtitle>
+                <ion-card-subtitle color="primary">{{ pedido.tipo_entrega }}</ion-card-subtitle>
+
+                <!-- Mostrar botón de eliminar solo si el estado no es "En Espera..." -->
+                <ion-buttons slot="end" class="delete-button" *ngIf="pedido.status === 'Por Pagar...'">
+                  <ion-button color="danger" (click)="DeletePedido(pedido)">
+                    <ion-icon name="trash"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ng-container>
+      </ion-row>
+    </ion-grid>
+
+
+  <!-- Mostrar el botón de pagar solo si existe un producto con status "Por Pagar..." -->
+  <ion-card class="ion-text-center" color="warning" style="width: 90%; margin: auto" *ngIf="mostrarBotonPagar()">
+    <ion-card-header>
+      <ion-title>Sub Total : {{ calculateTotal() }} $ | Delivery: {{ ultimaTasaDelivery }} Bs</ion-title>
+      <ion-title>Total: {{ totalConDelivery }} $</ion-title>
+      <ion-title>Total en Bs: {{ totalEnBs.toFixed(2) }} Bs</ion-title>
+      <ion-button color="success" expand="block" (click)="confirmarNuevoPedido()">
+        <ion-icon slot="start" name="cash-outline"></ion-icon>
+        Pagar Pedidos
+      </ion-button>
+    </ion-card-header>
+  </ion-card>
+</ion-content>

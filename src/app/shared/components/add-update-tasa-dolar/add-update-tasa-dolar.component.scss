@@ -1,0 +1,13 @@
+
+.input-container {
+  width: 90%; /* Ajusta el ancho del contenedor, por ejemplo, al 80% del contenedor padre */
+  padding: 5px; /* Reduce el padding interno */
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.945); /* Mantén la sombra si es necesaria */
+  margin: 0 auto 10px auto; /* Centra el div y ajusta el margen inferior */
+}
+.skeleton-wrapper {
+  display: inline-block;
+  vertical-align: middle;
+}
+

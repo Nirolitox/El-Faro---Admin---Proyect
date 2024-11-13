@@ -1,0 +1,173 @@
+<app-header [isModal]="true"></app-header>
+<ion-content color="primary">
+  <h1>Crear Consulta</h1>
+  <ion-avatar>
+    <ion-avatar>
+      <img [src]="pacien.image">
+    </ion-avatar>
+  </ion-avatar>
+
+  <ion-accordion-group expand="inset">
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+
+
+        <ion-label style="text-align: center;">
+          <ion-icon name="person-circle-outline" slot="start"></ion-icon>
+          Datos Del Estudiante
+        </ion-label>
+      </ion-item>
+      <div class="content-wrapper" slot="content">
+
+        <ion-label position="floating">
+          <ion-icon name="card-outline" slot="start" [formControl]="form.controls.cedula"></ion-icon>
+          Cedula : {{pacien.cedula}}
+        </ion-label>
+        <br>
+        <br>
+        <ion-label position="floating">
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          Nombres : {{pacien.nombres}}
+        </ion-label>
+        <br>
+        <br>
+        <ion-label position="floating">
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          Apellidos : {{pacien.apellidos}}
+        </ion-label>
+        <br><br>
+
+        <ion-label position="floating">
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          Carrera: {{pacien.semestre}} De {{pacien.carrera}}
+        </ion-label>
+
+
+      </div>
+
+    </ion-accordion>
+  </ion-accordion-group>
+
+  <ion-accordion-group expand="inset">
+    <ion-accordion value="first">
+      <ion-item slot="header" color="warning">
+        <ion-label style="text-align: center;">
+          <ion-icon name="clipboard-outline" slot="start"></ion-icon>
+          Ver Registro De Consultas
+        </ion-label>
+      </ion-item>
+      <div class="content-wrapper" slot="content">
+        <!-- Iterar sobre cada consulta del paciente -->
+        <ng-container *ngFor="let consulta of consultas; let last = last">
+          <!-- Mostrar los detalles de cada consulta -->
+          <ion-label position="floating">
+            <ion-icon name="calendar-outline" slot="start"></ion-icon>
+            Fecha De Consulta: {{ consulta.fecha }}
+          </ion-label><br><br>
+
+          <ion-label position="floating">
+            <ion-icon name="calendar-outline" slot="start"></ion-icon>
+            HORA: {{ consulta.hora }}
+          </ion-label><br><br>
+
+          <ion-label position="floating">
+            <ion-icon name="body-outline" slot="start"></ion-icon>
+            Motivo De Consulta: {{ consulta.motivo }}
+          </ion-label><br><br>
+
+          <ion-label position="floating">
+            <ion-icon name="heart-circle-outline" slot="start"></ion-icon>
+            EA: {{ consulta.enfermedad }}
+          </ion-label><br><br>
+
+          <ion-label position="floating">
+            <ion-icon name="bandage-outline" slot="start"></ion-icon>
+            IDx: {{ consulta.impresion }}
+          </ion-label><br><br>
+
+          <ion-label position="floating">
+            <ion-icon name="fitness-outline" slot="start"></ion-icon>
+            Plan: {{ consulta.plan }}
+          </ion-label><br><br>
+          <ion-button color="danger" shape="round" (click)="confirmDeletePaciente(consulta)">Eliminar Consulta</ion-button>
+
+            <!-- Otros elementos de la consulta -->
+
+            <ion-button color="warning" shape="round" (click)="makepdfHistoria(consulta)">Generar Historia Clinica</ion-button>
+            <ion-button color="success" shape="round" (click)="makepdfconstancia(consulta)">Generar Constancia Médica</ion-button>
+
+
+
+
+          <!-- Agregar la línea horizontal -->
+          <hr class="my-horizontal-line" *ngIf="!last">
+        </ng-container>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+
+
+
+  <ion-accordion-group expand="inset">
+    <ion-accordion value="first">
+      <ion-item slot="header" color="danger">
+
+
+        <ion-label style="text-align: center;">
+          <ion-icon name="create-outline" slot="start">
+          </ion-icon>
+          Generar Consulta
+        </ion-label>
+      </ion-item>
+      <div class="content-wrapper" slot="content">
+        <!-- MOTIVO DE CONSULTA -->
+        <app-custom-input autocomplete="name" icon="pulse-outline" type="text" label="Motivo De Consulta"
+          [control]="form.controls.motivo"></app-custom-input>
+
+        <!-- ENFERMEDAD ACTUAL -->
+        <ion-item>
+          <ion-icon name="pencil" slot="start"></ion-icon>
+          <ion-textarea [formControl]="form.controls.enfermedad" autoGrow="true" labelPlacement="floating">
+            <ion-label color="primary">EA</ion-label>
+          </ion-textarea>
+        </ion-item>
+
+
+        <!-- IMPRESION DIAGNOSTICA -->
+
+        <ion-item>
+          <ion-icon name="heart-outline" slot="start"></ion-icon>
+          <ion-textarea [formControl]="form.controls.impresion" [autoGrow]="true" labelPlacement="floating">
+            <div slot="label"><ion-text color="primary">IDx</ion-text></div>
+          </ion-textarea>
+        </ion-item>
+
+        <!-- PLAN TERAPEUTICO -->
+        <ion-item>
+          <ion-icon name="accessibility-outline" slot="start"></ion-icon>
+          <ion-textarea [formControl]="form.controls.plan" [autoGrow]="true" labelPlacement="floating">
+            <div slot="label"><ion-text color="primary">Plan</ion-text></div>
+          </ion-textarea>
+        </ion-item>
+
+
+        <div class="button-container">
+          <!-- <ion-button color="warning" shape="round" (click)="makepdf()">Generar PDF
+            <ion-icon slot="end" name="checkmark"></ion-icon>
+          </ion-button> -->
+
+          <ion-button color="success" shape="round" (click)="submit()">Guardar
+            <ion-icon slot="end" name="checkmark"></ion-icon>
+          </ion-button>
+        </div>
+
+
+
+
+
+      </div>
+
+
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

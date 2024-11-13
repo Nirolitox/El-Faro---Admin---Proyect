@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "el-faro-c5140",
+    "el-faro": "el-faro-c5140",
+    "www": "el-faro-c5140"
+  },
+  "targets": {},
+  "etags": {}
+}

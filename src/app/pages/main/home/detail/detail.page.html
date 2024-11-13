@@ -1,0 +1,81 @@
+<app-header [isModal]="true" title="Datos Del Paciente"></app-header>
+
+<ion-content class="ion-padding-top ion-text-center" color="primary">
+<br>
+<ion-avatar>
+    <img [src]="pacien.image" />
+</ion-avatar>
+<h1>Datos Principales</h1>
+    
+<div class="profile-details">
+
+    <h2 > {{pacien.nombres}}</h2>
+    <h3>{{pacien.apellidos}}</h3>
+    <br>
+    <ion-label>Cedula: {{pacien.cedula}}</ion-label>
+    <br>
+    <ion-label>Edad: {{pacien.edad}}</ion-label>
+    <br>
+    <ion-label>Grupo Sanguineo: {{pacien.tipoSangre}}</ion-label>
+    <br>
+    <ion-label>Telefono de Emergencia: {{pacien.telefonoEmergencia}}</ion-label>
+    <br>
+    <ion-label>Peso: {{pacien.peso}} Kg</ion-label>
+    <br>
+    <ion-label>Estatura: {{pacien.estatura}} M</ion-label>
+    <br>
+    <ion-label>Telefono: {{pacien.telefono}}</ion-label>
+    <br>
+    <ion-label>Fecha de Nacimiento: {{pacien.fechanacimiento}}</ion-label>
+<br>
+    <ion-label>Dirección: {{pacien.direccion}}</ion-label>
+    <br>
+    <ion-label>Ocupación: {{pacien.ocupacion}} </ion-label>
+    <br>
+    <ion-label>Carrera: {{pacien.carrera}} </ion-label>
+    <br>
+    <ion-label>Semestre: {{pacien.semestre}} </ion-label>
+
+
+    
+</div>
+
+<h1>ANTECEDENTES</h1>
+<div class="profile-detailes">
+    <ng-container *ngIf="pacien.asma">
+        <h3>Asma</h3>
+        <ion-label class="ion-text-center">{{ pacien.asma ? 'SI' : 'NO' }}</ion-label><br>
+        <ion-label class="ion-text-center">Desde Cuando? | {{pacien.desdeCuando}}</ion-label><br>
+        <ion-label class="ion-text-center">Tratamiento Actual: | {{pacien.tratamientoActual}}</ion-label><br>
+        <ion-label class="ion-text-center">Ultima Crisis: | {{pacien.ultimaCrisis}}</ion-label><br><br>
+    </ng-container>
+
+    <ng-container *ngIf="pacien.hipertencion">
+        <h3>Hipertensión</h3>
+        <ion-label class="ion-text-center">{{pacien.hipertencion ? 'SI' : 'NO' }}</ion-label><br>
+        <ion-label class="ion-text-center">Diagnostico: | {{pacien.fechadiagnostico}}</ion-label><br>
+        <ion-label class="ion-text-center">Tratamiento: | {{pacien.tratamientoActualHiper}}</ion-label><br><br>
+    </ng-container>
+
+    <ng-container *ngIf="pacien.diabetes">
+        <h3>Diabetes</h3>
+        <ion-label class="ion-text-center">{{pacien.diabetes ? 'SI' : 'NO' }}</ion-label><br>
+        <ion-label class="ion-text-center">Diagnostico: | {{pacien.fechadiagnosticodiabete}}</ion-label><br>
+        <ion-label class="ion-text-center">Tratamiento: | {{pacien.tratamientoActualdiabete}}</ion-label><br><br>
+    </ng-container>
+
+    <ng-container *ngIf="pacien.Quirurgicos">
+        <h3>Quirúrgicos</h3>
+        <ion-label class="ion-text-center">{{pacien.Quirurgicos ? 'SI' : 'NO' }}</ion-label><br>
+        <ion-label class="ion-text-center">{{pacien.descripcion}}</ion-label><br><br>
+    </ng-container>
+
+    <ng-container *ngIf="pacien.anticovid">
+        <h3>Vacunas Anticovid</h3>
+        <ion-label class="ion-text-center">{{pacien.anticovid ? 'SI' : 'NO' }}</ion-label><br>
+        <ion-label class="ion-text-center">{{pacien.descripcionanticovid}}</ion-label><br><br>
+    </ng-container>
+</div>
+
+
+</ion-content>

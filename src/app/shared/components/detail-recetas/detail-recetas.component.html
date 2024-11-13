@@ -1,0 +1,29 @@
+<ion-header style="border: none !important; box-shadow: none !important;">
+  <ion-toolbar style="--background: transparent; border: none !important; box-shadow: none !important;">
+    <ion-title>Detalles De La Receta</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  *ngIf="receta; else loading">
+  <img class="ion-padding" [src]="receta.image" alt="{{ receta.nombre }}" />
+  <h2>{{ receta.nombre }}</h2>
+  <p><strong>Precio:</strong> {{ receta.precio | currency }}</p>
+  <p><strong>Tiempo de Preparación:</strong> {{ receta.tiempo_de_preparacion }}</p>
+  <p><strong>Descripción:</strong> {{ receta.descripcion || 'No disponible' }}</p>
+
+  <h3>Productos Utilizados:</h3>
+  <ul>
+    <li *ngFor="let ingrediente of receta.ingredientes_utilizados">
+      {{ ingrediente.nombre }} | Cantidad: {{ ingrediente.medida }}
+    </li>
+  </ul>
+</ion-content>
+  
+<ng-template #loading>
+  <ion-spinner></ion-spinner>
+</ng-template>
